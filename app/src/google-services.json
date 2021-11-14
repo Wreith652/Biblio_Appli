@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1010507696489",
+    "project_id": "fir-biblio-app",
+    "storage_bucket": "fir-biblio-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010507696489:android:ab9fd30026e2ddaff915f8",
+        "android_client_info": {
+          "package_name": "com.lucien.biblio_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010507696489-d3v8a0l1hauhddg8oor9tl0qpks1ilf2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUzLzGuLzOuY-zyhqkTZLcqqEFBwQ1Cns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010507696489-d3v8a0l1hauhddg8oor9tl0qpks1ilf2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
