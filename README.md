@@ -5,6 +5,8 @@ This kotlin project aims to discover the functionality of Firebase ( authenticat
 
 ## Technologies
 
+
+
 ## Features
 
  - Create an account 

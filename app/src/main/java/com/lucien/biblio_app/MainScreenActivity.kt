@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.lucien.biblio_app.databinding.ActivityMainScreenBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
 
 class MainScreenActivity : AppCompatActivity() {
 
@@ -16,6 +20,8 @@ class MainScreenActivity : AppCompatActivity() {
 
     // BandeauSuperieur
     private lateinit var actionBar: androidx.appcompat.app.ActionBar
+
+    private val db: FirebaseFirestore = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +35,12 @@ class MainScreenActivity : AppCompatActivity() {
         actionBar.setDisplayShowHomeEnabled(true)
 
 
+
         // Init Firebase
         auth = FirebaseAuth.getInstance()
         checkUser()
+
+
     }
 
     // Vérifie si connecté ou pas
@@ -43,12 +52,36 @@ class MainScreenActivity : AppCompatActivity() {
         if (firebaseUser != null) {
             // Utilisateur deja connecteé
 
+            PrintFireStorageDB()
+
         }
         else{
             // Utilisateur NON connecté
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+
+    }
+
+    private fun PrintFireStorageDB() {
+        // Affiche le contenue de la base de donnée FireStore
+        db.collection("Livres")
+            .get()
+            .addOnCompleteListener {
+                val result: StringBuffer = StringBuffer()
+
+                if(it.isSuccessful) {
+
+                    for (document in it.result!!) {
+                        result.append(document.data.getValue("ID_Image")).append(" ")
+                            .append(document.data.getValue("Nom")).append("\n\n")
+                    }
+                    binding.ResultTV.setText(result)
+                }
+            }
+            /*.addOnFailureListener {
+                binding.ResultTV.setText("Error getting documents.")
+            }*/
 
     }
 
