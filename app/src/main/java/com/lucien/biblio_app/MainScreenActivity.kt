@@ -63,25 +63,25 @@ class MainScreenActivity : AppCompatActivity() {
 
     }
 
+    // Affiche Db Firestore
     private fun PrintFireStorageDB() {
         // Affiche le contenue de la base de donnée FireStore
         db.collection("Livres")
             .get()
-            .addOnCompleteListener {
-                val result: StringBuffer = StringBuffer()
+            .addOnSuccessListener { result ->
 
-                if(it.isSuccessful) {
+                val resu: StringBuffer = StringBuffer()
 
-                    for (document in it.result!!) {
-                        result.append(document.data.getValue("ID_Image")).append(" ")
+                for (document in result) {
+                        resu.append(document.data.getValue("ID_Image")).append(" ")
                             .append(document.data.getValue("Nom")).append("\n\n")
-                    }
-                    binding.ResultTV.setText(result)
                 }
+                binding.ResultTV.setText(resu)
+
             }
-            /*.addOnFailureListener {
-                binding.ResultTV.setText("Error getting documents.")
-            }*/
+            .addOnFailureListener {
+                binding.ResultTV.setText("Erreur getting documents .addOnFailureListener.")
+            }
 
     }
 
