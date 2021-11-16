@@ -3,7 +3,11 @@ package com.lucien.biblio_app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentChange
 import com.lucien.biblio_app.databinding.ActivityMainScreenBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -21,7 +25,18 @@ class MainScreenActivity : AppCompatActivity() {
     // BandeauSuperieur
     private lateinit var actionBar: androidx.appcompat.app.ActionBar
 
+    // FireStore Init
     private val db: FirebaseFirestore = Firebase.firestore
+
+    // RecyclerView
+    private lateinit var livreRecyclerview : RecyclerView
+    private lateinit var livreArrayList: ArrayList<Livre>
+    lateinit var imageId : Array<Int>
+    lateinit var titre : Array<String>
+    lateinit var auteur : Array<String>
+
+    // Adapter
+    private lateinit var  adapter: Adapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +54,15 @@ class MainScreenActivity : AppCompatActivity() {
         // Init Firebase
         auth = FirebaseAuth.getInstance()
         checkUser()
+
+        livreRecyclerview = findViewById(R.id.BookRV)
+        livreRecyclerview.layoutManager = LinearLayoutManager(this)
+        livreRecyclerview.setHasFixedSize(true)
+
+        livreArrayList = arrayListOf()
+
+        adapter = Adapter(livreArrayList)
+
 
 
     }
@@ -68,19 +92,17 @@ class MainScreenActivity : AppCompatActivity() {
         // Affiche le contenue de la base de donnée FireStore
         db.collection("Livres")
             .get()
-            .addOnSuccessListener { result ->
+            .addOnSuccessListener {
 
-                val resu: StringBuffer = StringBuffer()
-
-                for (document in result) {
-                        resu.append(document.data.getValue("ID_Image")).append(" ")
-                            .append(document.data.getValue("Nom")).append("\n\n")
+                for (document : DocumentChange in it?.documentChanges!!) {
+                    if (document.type == DocumentChange.Type.ADDED){
+                        livreArrayList.add(document.document.toObject(Livre::class.java))
+                    }
                 }
-                binding.ResultTV.setText(resu)
-
+                adapter.notifyDataSetChanged()
             }
             .addOnFailureListener {
-                binding.ResultTV.setText("Erreur getting documents .addOnFailureListener.")
+                Log.e("Erreur getting document", it.message.toString())
             }
 
     }
