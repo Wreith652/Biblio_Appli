@@ -122,17 +122,12 @@ class MainScreenActivity : AppCompatActivity(), ItemClickListener {
         return super.onSupportNavigateUp()
     }
 
-    override fun onItemClicked(positions : Livres) {
-        Log.e("Data", positions.toString())
+    override fun onItemClicked(PosData : Int) {
+        Log.e("Data", PosData.toString())
         val intent : Intent = Intent(this, DetailActivity::class.java)
         startActivity(intent)
 
-        intent.putExtra("AUTEUR", positions.Auteur.toString())
-        intent.putExtra("DESCRIPTION", positions.Description.toString())
-        intent.putExtra("IMAGE", positions.Image.toString())
-        intent.putExtra("LU", positions.Lu.toString())
-        intent.putExtra("TITRE", positions.Nom.toString())
-        intent.putExtra("PARUTION", positions.Parution.toString())
+        intent.putExtra("POSDATA", PosData)
 
         finish()
     }

@@ -28,7 +28,7 @@ class Adapter(private val context: Context,private val itemClickListener: ItemCl
         val livres : Livres = livreliste[position]
 
         holder.itemView.setOnClickListener {
-            itemClickListener.onItemClicked(livres)
+            itemClickListener.onItemClicked(position)
         }
 
         if (livres.Lu == true) {
