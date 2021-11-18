@@ -8,9 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
 
 
 class Adapter(private val context: Context, private val livreliste : ArrayList<Livres>) :
@@ -26,8 +23,7 @@ class Adapter(private val context: Context, private val livreliste : ArrayList<L
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        //var storage = Firebase.storage
-        //val storageRef : StorageReference = storage.getReference()
+
         val livres : Livres = livreliste[position]
 
 
@@ -40,7 +36,6 @@ class Adapter(private val context: Context, private val livreliste : ArrayList<L
         holder.Auteur.text = livres.Auteur
 
 
-        //val pathReference = storageRef.child(livres.Image)
 
         Glide.with(context)
             .load(livres.Image)
