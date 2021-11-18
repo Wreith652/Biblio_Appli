@@ -1,13 +1,19 @@
 package com.lucien.biblio_app
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.imageview.ShapeableImageView
+import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 
-class Adapter(private val Livreliste : ArrayList<Livre>) :
+
+class Adapter(private val context: Context, private val livreliste : ArrayList<Livres>) :
     RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
 
@@ -20,21 +26,41 @@ class Adapter(private val Livreliste : ArrayList<Livre>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val livre : Livre = Livreliste[position]
-        livre.Id_Image?.let { holder.ID_Image.setImageResource(it) }
-        holder.Titre.text = livre.Titre
-        holder.Auteur.text = livre.Auteur
+        //var storage = Firebase.storage
+        //val storageRef : StorageReference = storage.getReference()
+        val livres : Livres = livreliste[position]
+
+
+        if (livres.Lu == true)
+            holder.Lu.setText("Lu")
+        else
+            holder.Lu.setText("Pas encore lu")
+
+        holder.Titre.text = livres.Nom
+        holder.Auteur.text = livres.Auteur
+
+
+        //val pathReference = storageRef.child(livres.Image)
+
+        Glide.with(context)
+            .load(livres.Image)
+            .into(holder.Image)
+
+
+
     }
 
     override fun getItemCount(): Int {
-        return Livreliste.size
+        return livreliste.size
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val ID_Image : ShapeableImageView = itemView.findViewById(R.id.IVId_Image)
-        val Titre : TextView = itemView.findViewById(R.id.TVTitre)
-        val Auteur : TextView = itemView.findViewById(R.id.TVAuteur)
+
+        val Image : ImageView = itemView.findViewById(R.id.IVImage)
+        val Titre : TextView = itemView.findViewById(R.id.TVtitre)
+        val Auteur : TextView = itemView.findViewById(R.id.TVauteur)
+        val Lu : TextView = itemView.findViewById(R.id.TVlu)
 
     }
 }

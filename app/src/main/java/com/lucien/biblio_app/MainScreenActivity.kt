@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.lucien.biblio_app.databinding.ActivityMainScreenBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -30,10 +31,7 @@ class MainScreenActivity : AppCompatActivity() {
 
     // RecyclerView
     private lateinit var livreRecyclerview : RecyclerView
-    private lateinit var livreArrayList: ArrayList<Livre>
-    lateinit var imageId : Array<Int>
-    lateinit var titre : Array<String>
-    lateinit var auteur : Array<String>
+    private lateinit var livresArrayList: ArrayList<Livres>
 
     // Adapter
     private lateinit var  adapter: Adapter
@@ -59,10 +57,11 @@ class MainScreenActivity : AppCompatActivity() {
         livreRecyclerview.layoutManager = LinearLayoutManager(this)
         livreRecyclerview.setHasFixedSize(true)
 
-        livreArrayList = arrayListOf()
+        livresArrayList = arrayListOf()
 
-        adapter = Adapter(livreArrayList)
+        adapter = Adapter(this,livresArrayList)
 
+        livreRecyclerview.adapter = adapter
 
 
     }
@@ -90,13 +89,13 @@ class MainScreenActivity : AppCompatActivity() {
     // Affiche Db Firestore
     private fun PrintFireStorageDB() {
         // Affiche le contenue de la base de donnée FireStore
-        db.collection("Livres")
+        db.collection("Livres").orderBy("ID", Query.Direction.ASCENDING )
             .get()
             .addOnSuccessListener {
 
                 for (document : DocumentChange in it?.documentChanges!!) {
                     if (document.type == DocumentChange.Type.ADDED){
-                        livreArrayList.add(document.document.toObject(Livre::class.java))
+                        livresArrayList.add(document.document.toObject(Livres::class.java))
                     }
                 }
                 adapter.notifyDataSetChanged()
