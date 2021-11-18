@@ -3,13 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Documents/COURS/B3/Biblio_Appli/app/src/main/res/layout/activity_main_screen.xml" value="0.2" />
-        <entry key="..\:/Documents/COURS/B3/Biblio_Appli/app/src/main/res/layout/list_item.xml" value="0.22" />
+        <entry key="..\:/Documents/COURS/B3/Biblio_Appli/app/src/main/res/layout/activity_main_screen.xml" value="0.371875" />
+        <entry key="..\:/Stockage_dossier/B3/Biblio_App/app/src/main/res/layout/activity_detail.xml" value="0.33" />
         <entry key="..\:/Stockage_dossier/B3/Biblio_App/app/src/main/res/layout/activity_login.xml" value="0.24166666666666667" />
         <entry key="..\:/Stockage_dossier/B3/Biblio_App/app/src/main/res/layout/activity_main.xml" value="0.22291666666666668" />
         <entry key="..\:/Stockage_dossier/B3/Biblio_App/app/src/main/res/layout/activity_main_screen.xml" value="0.24166666666666667" />
         <entry key="..\:/Stockage_dossier/B3/Biblio_App/app/src/main/res/layout/activity_signup.xml" value="0.24166666666666667" />
-        <entry key="..\:/Stockage_dossier/B3/Biblio_App/app/src/main/res/layout/list_item.xml" value="0.1" />
+        <entry key="..\:/Stockage_dossier/B3/Biblio_App/app/src/main/res/layout/list_item.xml" value="0.22" />
         <entry key="..\:/Stockage_dossier/B3/Biblio_App/app/src/main/res/menu/menu.xml" value="0.11510416666666666" />
       </map>
     </option>
@@ -19,8 +19,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="SuppressKotlinCodeStyleNotification">
-    <option name="disableForAll" value="true" />
   </component>
 </project>

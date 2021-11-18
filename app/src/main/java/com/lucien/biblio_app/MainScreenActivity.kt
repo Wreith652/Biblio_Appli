@@ -15,7 +15,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
-class MainScreenActivity : AppCompatActivity() {
+class MainScreenActivity : AppCompatActivity(), ItemClickListener {
 
     // ViewBinding
     private lateinit var binding: ActivityMainScreenBinding
@@ -43,7 +43,7 @@ class MainScreenActivity : AppCompatActivity() {
 
         // Config BandeaudSuperieur
         actionBar = supportActionBar!!
-        actionBar.title = "BiblioApp"
+        actionBar.title = "Liste de livres"
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.setDisplayShowHomeEnabled(true)
 
@@ -59,9 +59,11 @@ class MainScreenActivity : AppCompatActivity() {
 
         livresArrayList = arrayListOf()
 
-        adapter = Adapter(this,livresArrayList)
+        adapter = Adapter(this, this,livresArrayList)
 
         livreRecyclerview.adapter = adapter
+
+
 
 
     }
@@ -118,5 +120,20 @@ class MainScreenActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         signOut() // Retour sur Login  lorsque click sur bouton retour
         return super.onSupportNavigateUp()
+    }
+
+    override fun onItemClicked(positions : Livres) {
+        Log.e("Data", positions.toString())
+        val intent : Intent = Intent(this, DetailActivity::class.java)
+        startActivity(intent)
+
+        intent.putExtra("AUTEUR", positions.Auteur.toString())
+        intent.putExtra("DESCRIPTION", positions.Description.toString())
+        intent.putExtra("IMAGE", positions.Image.toString())
+        intent.putExtra("LU", positions.Lu.toString())
+        intent.putExtra("TITRE", positions.Nom.toString())
+        intent.putExtra("PARUTION", positions.Parution.toString())
+
+        finish()
     }
 }

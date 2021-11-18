@@ -1,16 +1,18 @@
 package com.lucien.biblio_app
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+
 import com.bumptech.glide.Glide
 
 
-class Adapter(private val context: Context, private val livreliste : ArrayList<Livres>) :
+class Adapter(private val context: Context,private val itemClickListener: ItemClickListener, private val livreliste : ArrayList<Livres>) :
     RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
 
@@ -23,25 +25,27 @@ class Adapter(private val context: Context, private val livreliste : ArrayList<L
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-
         val livres : Livres = livreliste[position]
 
+        holder.itemView.setOnClickListener {
+            itemClickListener.onItemClicked(livres)
+        }
 
-        if (livres.Lu == true)
+        if (livres.Lu == true) {
             holder.Lu.setText("Lu")
-        else
+            holder.Lu.setTextColor(Color.GREEN)
+        }
+        else {
             holder.Lu.setText("Pas encore lu")
+            holder.Lu.setTextColor(Color.RED)
+        }
 
         holder.Titre.text = livres.Nom
         holder.Auteur.text = livres.Auteur
 
-
-
         Glide.with(context)
             .load(livres.Image)
             .into(holder.Image)
-
-
 
     }
 
